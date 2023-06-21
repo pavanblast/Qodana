@@ -23,13 +23,13 @@ data = json.load(open("Resources/config.json"))
 # with some step hooks.
 
 def before_scenario(context, scenario):
-    mobile_emulation = {
-        "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},
-        "userAgent": "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.210 Mobile Safari/537.36",
-    }
+    # mobile_emulation = {
+    #     "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},
+    #     "userAgent": "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.210 Mobile Safari/537.36",
+    # }
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
-    options.add_experimental_option("mobileEmulation", mobile_emulation)
+    #options.add_experimental_option("mobileEmulation", mobile_emulation)
     context.driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
     time.sleep(5)
     basepage = BasePage(context.driver)
