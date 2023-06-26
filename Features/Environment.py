@@ -11,6 +11,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from Features.PageObjects.HomePage import HomePage
 from Features.PageObjects.InPersonSign import InPersonSign
 from Features.PageObjects.RegistrationPageOnMobile import RegistrationPageOnMobile
+from Features.PageObjects.ReportsPage import ReportsPage
 from PageObjects.BasePage import BasePage
 from PageObjects.LoginPage import LoginPage
 from PageObjects.WebsitePages import WebsitePages
