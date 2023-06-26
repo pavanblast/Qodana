@@ -40,7 +40,6 @@ def before_scenario(context, scenario):
     context.homepage = HomePage(basepage)
     context.inpersonsign = InPersonSign(basepage)
     context.registrationpageonmobile = RegistrationPageOnMobile(basepage)
-    context.reportspage = ReportsPage(basepage)
     context.stepid = 1
     context.driver.get(data['ApplicationURL'])
     # context.driver.get(data['LiteUserURL'])
