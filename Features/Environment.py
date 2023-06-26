@@ -14,6 +14,7 @@ from Features.PageObjects.RegistrationPageOnMobile import RegistrationPageOnMobi
 from PageObjects.BasePage import BasePage
 from PageObjects.LoginPage import LoginPage
 from PageObjects.WebsitePages import WebsitePages
+from PageObjects.ReportsPage import ReportsPage
 from PageObjects.LiteuserValidDocumentsUploadVerification import LiteuserValidDocumentsUploadVerification
 
 data = json.load(open("Resources/config.json"))
@@ -23,14 +24,15 @@ data = json.load(open("Resources/config.json"))
 # with some step hooks.
 
 def before_scenario(context, scenario):
-    mobile_emulation = {
-        "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},
-        "userAgent": "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.210 Mobile Safari/537.36",
-    }
+    # mobile_emulation = {
+    #     "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},
+    #     "userAgent": "Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.210 Mobile Safari/537.36",
+    # }
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
-    options.add_experimental_option("mobileEmulation", mobile_emulation)
+    # options.add_experimental_option("mobileEmulation", mobile_emulation)
     context.driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
+
     time.sleep(5)
     basepage = BasePage(context.driver)
     context.loginpage = LoginPage(basepage)
@@ -39,6 +41,7 @@ def before_scenario(context, scenario):
     context.homepage = HomePage(basepage)
     context.inpersonsign = InPersonSign(basepage)
     context.registrationpageonmobile = RegistrationPageOnMobile(basepage)
+    context.reportspage = ReportsPage(basepage)
     context.stepid = 1
     context.driver.get(data['ApplicationURL'])
     # context.driver.get(data['LiteUserURL'])

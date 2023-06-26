@@ -4,7 +4,7 @@ Feature: Login
     When Logout from the application
     Examples:
       | Email                   | Password      |
-      | mitisphere2@gmail.com | Signulu@1234 |
+      | mitisphere1@gmail.com | Signulu@1234 |
 
 #  Scenario: Login page negative scenarios
 #    Given Verifying elements on login page
