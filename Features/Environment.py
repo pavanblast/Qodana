@@ -22,7 +22,7 @@ data = json.load(open("Resources/config.json"))
 
 
 # This environment page is used as hooks page. Here we can notice that we have used before, after hooks along side
-# with some step hooks.
+# with some step hooks. 
 
 def before_scenario(context, scenario):
     # mobile_emulation = {
