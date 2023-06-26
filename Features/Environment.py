@@ -11,6 +11,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from Features.PageObjects.HomePage import HomePage
 from Features.PageObjects.InPersonSign import InPersonSign
 from Features.PageObjects.RegistrationPageOnMobile import RegistrationPageOnMobile
+from Features.PageObjects.ReportsPage import ReportsPage
 from PageObjects.BasePage import BasePage
 from PageObjects.LoginPage import LoginPage
 from PageObjects.WebsitePages import WebsitePages
@@ -29,7 +30,7 @@ def before_scenario(context, scenario):
     # }
     options = webdriver.ChromeOptions()
     options.add_experimental_option("detach", True)
-    #options.add_experimental_option("mobileEmulation", mobile_emulation)
+    # options.add_experimental_option("mobileEmulation", mobile_emulation)
     context.driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
     time.sleep(5)
     basepage = BasePage(context.driver)
@@ -39,6 +40,7 @@ def before_scenario(context, scenario):
     context.homepage = HomePage(basepage)
     context.inpersonsign = InPersonSign(basepage)
     context.registrationpageonmobile = RegistrationPageOnMobile(basepage)
+    context.reportspage = ReportsPage(basepage)
     context.stepid = 1
     context.driver.get(data['ApplicationURL'])
     # context.driver.get(data['LiteUserURL'])

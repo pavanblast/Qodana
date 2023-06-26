@@ -6,6 +6,11 @@ def i_should_be_on_dashboard_page(context):
     context.homepage.home_page_title()
 
 
+@when('Multi language test on home page')
+def i_should_be_on_dashboard_page(context):
+    context.homepage.multi_lang_test_on_home_page()
+
+
 @when('I verify document start options are displayed')
 def i_verify_document_start_options_are_displayed(context):
     context.homepage.home_page_cards_visibility_check()
