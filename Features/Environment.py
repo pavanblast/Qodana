@@ -56,5 +56,4 @@ def after_step(context, step):
 
 
 def after_scenario(context, scenario):
-    pass
-    #context.driver.close()
+    context.driver.close()
