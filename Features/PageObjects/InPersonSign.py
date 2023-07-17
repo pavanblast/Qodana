@@ -3,8 +3,11 @@ import time
 import pyautogui
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from Features.PageObjects.BasePage import BasePage
+import autoit
 
 
 class InPersonSign(BasePage):
@@ -23,6 +26,9 @@ class InPersonSign(BasePage):
         self.dropdown_xpath = "//*[@id='sidebar']/div/div[3]/div[2]/div[1]/div[2]/select"
 
     def normal_user_file_upload_from_local_machine(self):
+        #element = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, self.upload_btn_xpath)))
+        #element.click()
+        time.sleep(8)
         UploadBtn = self.driver.find_element(By.XPATH, self.upload_btn_xpath)
         UploadBtn.click()
         time.sleep(1)
@@ -38,7 +44,7 @@ class InPersonSign(BasePage):
         pyautogui.write(PdfFileUpload)
         time.sleep(2)
         pyautogui.press('enter')
-        time.sleep(6)
+        time.sleep(10)
 
     def select_page_adding_recipient_selecting_notary(self):
         SideBarMenu = self.driver.find_element(By.XPATH, self.side_bar_xpath)
@@ -53,8 +59,9 @@ class InPersonSign(BasePage):
         self.driver.find_element(By.XPATH, self.last_name_input_xpath).send_keys("B")
         self.driver.find_element(By.XPATH, self.email_input_xpath).send_keys("mitisphere6@gmail.com")
         self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(By.XPATH, self.signatory_toggle_xpath))
-        time.sleep(1)
+        time.sleep(5)
         self.driver.find_element(By.XPATH, self.signatory_toggle_xpath).click()
+        time.sleep(1)
         self.driver.find_element(By.XPATH, self.add_btn_xpath).click()
         time.sleep(3)
 
@@ -64,4 +71,9 @@ class InPersonSign(BasePage):
         DropDown.select_by_value("inPerson")
         time.sleep(2)
 
-
+    def drop_controls_for_both_recipients(self):
+        time.sleep(10)
+        SideBarMenu = self.driver.find_element(By.XPATH, self.side_bar_xpath)
+        SideBarMenu.click()
+        time.sleep(1)
+        autoit.mouse_click_drag(180,711,600,700,"left",5)

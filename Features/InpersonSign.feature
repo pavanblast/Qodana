@@ -8,8 +8,8 @@ Feature: In person sign functionality
     And Click on next button
     And Next move to select page and add one recipient and then select notary
     And Click on next button
-#    Then I validate recent records and more button options
+    And I drop controls for both the recipients
 
     Examples:
       | Email                   | Password      |companyID|userId|
-      | mitisphere2@gmail.com | Signulu@123456 |67         |158   |
+      | mitisphere1@gmail.com | Signulu@1234 |67         |158   |

@@ -54,9 +54,8 @@ class ReportsPage(BasePage):
         TotalActiveUsers = results[0][0]
         print("TotalActiveUsers = ", TotalActiveUsers)
         TotalActiveUsersAct = self.driver.find_element(By.XPATH, self.total_active_users_xpath).text
-        print("TotalActiveUsers", TotalActiveUsers)
 
-        assert TotalActiveUsers == TotalActiveUsersAct, "Total Active Users count not matching"
+        assert int(TotalActiveUsers) == int(TotalActiveUsersAct), "Total Active Users count not matching"
 
         sql2 = """SELECT COUNT(u.user_id) AS TotalInActiveUsers
                 FROM signattqadb.user u
@@ -72,7 +71,7 @@ class ReportsPage(BasePage):
 
         TotalUsers = TotalActiveUsers + TotalInActiveUsers
         TotalUsersAct = self.driver.find_element(By.XPATH, self.total_users_xpath).text
-        assert TotalUsers == TotalUsersAct, "Total Users count not matching"
+        assert int(TotalUsers) == int(TotalUsersAct), "Total Users count not matching"
 
         today = datetime.date.today()
         year = today.year
@@ -82,7 +81,7 @@ class ReportsPage(BasePage):
                 INNER JOIN signattqadb.ad_party p ON p.ad_document_id = d.ad_document_id
                 INNER JOIN signattqadb.user u ON p.user_id = u.user_id
                 INNER JOIN signattqadb.ad_document_status s ON s.ad_document_status_id = d.status_id
-                WHERE s.code = 'APPROVED' AND YEAR(d.created_date) = """ + year + """ 
+                WHERE s.code = 'APPROVED' AND YEAR(d.created_date) = """ + str(year) + """ 
                 AND d.company_id = """ + companyId + """ order by d.ad_document_id desc;"""
 
         cursor.execute(sql3)
@@ -97,8 +96,8 @@ class ReportsPage(BasePage):
                 INNER JOIN signattqadb.user u ON p.user_id = u.user_id 
                 INNER JOIN signattqadb.ad_document_status s ON s.ad_document_status_id = d.status_id
                 WHERE s.code = 'APPROVED'
-                AND YEAR(d.created_date) = """ + year + """
-                AND MONTH(d.created_date) = """ + month + """ 
+                AND YEAR(d.created_date) = """ + str(year) + """
+                AND MONTH(d.created_date) = """ + str(month) + """ 
                 AND d.company_id = """ + companyId + """ order by d.ad_document_id desc;"""
 
         cursor.execute(sql4)
@@ -113,10 +112,10 @@ class ReportsPage(BasePage):
         print("MonthlyUsedDocument = ", MonthlyUsedDocument)
         print("YearlyUsedDocumentAct = ", YearlyUsedDocumentAct)
 
-        assert MonthlyUsedDocumentAct == MonthlyUsedDocument, "MonthlyUsedDocument count not matching"
-        assert YearlyUsedDocumentAct == YearlyUsedDocument, "YearlyUsedDocument count not matching"
+        assert int(MonthlyUsedDocumentAct) == int(MonthlyUsedDocument), "MonthlyUsedDocument count not matching"
+        assert int(YearlyUsedDocumentAct) == int(YearlyUsedDocument), "YearlyUsedDocument count not matching"
         docs_per_user = self.driver.find_element(By.XPATH, self.documents_per_user_xpath)
-        assert docs_per_user == round(YearlyUsedDocument / TotalUsers), "Document per user count not matching"
+        assert int(docs_per_user) == round(YearlyUsedDocument / TotalUsers), "Document per user count not matching"
 
     def validate_headers(self):
         dashboard_header = self.driver.find_element(By.XPATH, self.dashboard_header_xpath)
