@@ -9,8 +9,7 @@ def file_upload_normal_user(context):
 @when('Next move to select page and add one recipient and then select inperson')
 def add_recipient_and_select_notary(context):
     context.inpersonsign.select_page_adding_recipient_selecting_notary()
-
-
-@when('Move to prepare page and drop the controls')
+    
+@when('I drop controls for both the recipients')
 def add_recipient_and_select_notary(context):
-    context.inpersonsign.drag_and_drop_controls()
+    context.inpersonsign.drop_controls_for_both_recipients()
