@@ -14,7 +14,7 @@ class LiteuserValidDocumentsUploadVerification(BasePage):
         self.home_page_card_class = "create-card-box-item"
         self.upload_btn_xpath = "//button[contains(text(),'upload')]"
         self.upload_btn_on_popup_xpath = "//h3[contains(text(),'Click To Upload or Drag & Drop Your File Here')]"
-        self.next_btn_xpath = "//button[contains(text(),'NEXT')]"
+        self.next_btn_xpath = "//*[text()='NEXT']"
         self.uploaded_document_count_xpath = "//*[@id='firstTab']/div[1]/h3[2]"
         self.uploaded_document_count_xpath_1 = "//*[@id='firstTab']/div[1]/h3"
         self.document_name = "//h3[contains(text(),'10 Pages document with fields')]"
@@ -203,6 +203,7 @@ class LiteuserValidDocumentsUploadVerification(BasePage):
         time.sleep(6)
 
     def next_button_click(self):
+        time.sleep(3)
         NextBtn = self.driver.find_element(By.XPATH, self.next_btn_xpath)
         self.driver.execute_script("arguments[0].scrollIntoView();", NextBtn)
         time.sleep(2)
