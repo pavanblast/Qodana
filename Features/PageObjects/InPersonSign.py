@@ -77,3 +77,4 @@ class InPersonSign(BasePage):
         SideBarMenu.click()
         time.sleep(1)
         autoit.mouse_click_drag(180,711,600,700,"left",5)
+
