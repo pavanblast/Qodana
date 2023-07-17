@@ -1,13 +1,14 @@
 import os
 import time
 import pyautogui
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from Features.PageObjects.BasePage import BasePage
 import autoit
+
 
 
 class InPersonSign(BasePage):
@@ -50,7 +51,6 @@ class InPersonSign(BasePage):
         SideBarMenu = self.driver.find_element(By.XPATH, self.side_bar_xpath)
         SideBarMenu.click()
         time.sleep(1)
-
         # Adding recipient from add from contacts popup.
         self.driver.find_element(By.XPATH, self.add_new_recip_btn_xpath).click()
         time.sleep(1)

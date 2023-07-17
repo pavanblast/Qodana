@@ -2,3 +2,4 @@ behave~=1.2.6
 mysql-connector-python~=8.0.33
 selenium~=4.9.1
 PyAutoGUI~=0.9.54
+requests~=2.31.0

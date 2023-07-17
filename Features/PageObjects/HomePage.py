@@ -1,9 +1,12 @@
 import time
 
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 import mysql.connector
-from Features.PageObjects.BasePage import BasePage
+from selenium.webdriver.support.wait import WebDriverWait
 
+from Features.PageObjects.BasePage import BasePage
+from selenium.webdriver.support import expected_conditions as EC
 
 class HomePage(BasePage):
     def __init__(self, context):
@@ -70,6 +73,32 @@ class HomePage(BasePage):
         assert HomePage_title.is_displayed(), "Home page title is not displayed"
         assert HomePage_title.text == "What would you like to do?", "Home page title mis-matched"
 
+    def validate_days_left_and_used_documents_count(self):
+        connection = mysql.connector.connect(
+            host="attainica.cq1yuvwrfsbo.us-east-1.rds.amazonaws.com",
+            user="signattqadb",
+            password="4rfs897sQrpA",
+            database="signattqadb"
+        )
+
+        cursor = connection.cursor()
+
+        # Execute a query
+        query1 = """SELECT ds.name AS Name, COUNT(DISTINCT d.ad_document_id) AS RecordCount
+                                FROM signattqadb.ad_document d
+                                INNER JOIN signattqadb.ad_document_status ds ON d.status_id = ds.ad_document_status_id
+                                INNER JOIN signattqadb.ad_party p ON p.ad_document_id = d.ad_document_id
+                                INNER JOIN signattqadb.ad_document_status dp ON p.status_id = dp.ad_document_status_id
+                                WHERE p.user_id = """ + userId + """ AND ds.name in ('Draft');"""
+        cursor.execute(query1)
+
+        # Fetch the query results
+        results1 = cursor.fetchall()
+        print(results1)
+        DaysLeftCount = results1[0][1]
+        print(query1)
+        print("Draft Documents Count = ", DaysLeftCount)
+
     def multi_lang_test_for_arabic_on_home_page(self):
         # SideBar = self.driver.find_element(By.XPATH, self.side_bar_menu_xpath)
         # SideBar.click()
@@ -78,7 +107,6 @@ class HomePage(BasePage):
         time.sleep(1)
         self.driver.find_element(By.XPATH, "//*[@id='main']/div[1]/div/div/div[2]/div[1]/ul/li[2]").click()
         time.sleep(1)
-
         # Sidebar elements language test.
         assert self.driver.find_element(By.XPATH,
                                         self.side_bar_home_xpath).text == "بيت", "Side bar home Arabic Language mis-matched"

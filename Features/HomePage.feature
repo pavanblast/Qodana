@@ -4,6 +4,7 @@ Feature: Home Page
 
     Given User login to application using "<Email>" and "<Password>"
     When User should be on dashboard page
+    When Verify the days left and documents count
     When Multi language test on home page
 #    And I verify document start options are displayed
 #    And I validate dashboard cards are displayed
