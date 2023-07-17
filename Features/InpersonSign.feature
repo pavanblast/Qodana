@@ -11,5 +11,5 @@ Feature: In person sign functionality
     And I drop controls for both the recipients
 
     Examples:
-      | Email                   | Password      |companyID|userId|
-      | mitisphere1@gmail.com | Signulu@1234 |67         |158   |
+      | Email                   | Password      |
+      | mitisphere1@gmail.com | Signulu@1234 |
