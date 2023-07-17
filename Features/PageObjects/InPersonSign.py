@@ -1,10 +1,11 @@
 import os
 import time
 import pyautogui
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
-
 from Features.PageObjects.BasePage import BasePage
+
 
 
 class InPersonSign(BasePage):
@@ -44,7 +45,6 @@ class InPersonSign(BasePage):
         SideBarMenu = self.driver.find_element(By.XPATH, self.side_bar_xpath)
         SideBarMenu.click()
         time.sleep(1)
-
         # Adding recipient from add from contacts popup.
         self.driver.find_element(By.XPATH, self.add_new_recip_btn_xpath).click()
         time.sleep(1)
@@ -63,5 +63,61 @@ class InPersonSign(BasePage):
         DropDown = Select(self.driver.find_element(By.XPATH, self.dropdown_xpath))
         DropDown.select_by_value("inPerson")
         time.sleep(2)
+
+    def drag_and_drop_controls(self):
+        driver = self.driver
+        driver.get("https://appqa.signulu.com/account/documentprepare/7797")
+        time.sleep(10)
+        # source1 = driver.find_element(By.ID, 'att-signature-icon-drag')
+        # action = ActionChains(driver)
+        # target_element = driver.find_element(By.XPATH, "//*[@id='scrollArea']/div/div/canvas")
+        # action.click_and_hold(source1).move_by_offset(229, 156).release(target_element).perform()
+        # time.sleep(5)
+
+        # # Find the source element to drag
+        # source_element = driver.find_element(By.XPATH, "att-signature-icon-drag")  # Replace with the actual source element ID
+        #
+        # # Find the destination element to drop
+        # destination_element = driver.find_element_by_id("destination_element_id")  # Replace with the actual destination element ID
+        # # Get the source element's coordinates
+        # source_x = source_element.location['x']
+        # source_y = source_element.location['y']
+        # # Get the destination element's coordinates
+        # destination_x = 603
+        # destination_y = 396
+        # # Perform the drag and drop using AutoIt
+        # autoit.mouse_click_drag(source_x, source_y, destination_x, destination_y)
+
+        dropDown = ActionChains(driver)
+        signature = driver.find_element(By.XPATH, "//*[@id='docuemt_controls_area']/div[2]/ul/li[1]/button/img");
+        time.sleep(1)
+
+        canvas = driver.find_element(By.XPATH, "//*[@id='scrollArea']/div/div[1]/canvas");
+        xoffset1 = signature.location['x']
+        yoffset1 = signature.location['y']
+        xoffset = canvas.location['x']
+        yoffset = canvas.location['y']
+        print(str(xoffset1)+"===>"+str(yoffset1))
+        print(str(xoffset)+"===>"+str(yoffset))
+        xoffset = (xoffset - xoffset1) + 573;
+        yoffset = (yoffset - yoffset1) + 700;
+        print(str(xoffset) + "===>" + str(yoffset))
+        # message = f"My name is {xoffset1} and I am {yoffset1} years old.{xoffset} and {yoffset}"
+        # # driver.execute_script("alert(message);")
+        # # time.sleep(50)
+        # dropDown.drag_and_drop_by_offset(signature, xoffset, yoffset).perform();
+        # time.sleep(2);
+
+        actions = ActionChains(driver)
+        actions.move_to_element(signature)
+        actions.click_and_hold()
+        actions.move_by_offset(xoffset, yoffset)
+        actions.release()
+        actions.move_to_element(canvas)
+        actions.click()
+        actions.perform()
+
+
+
 
 
